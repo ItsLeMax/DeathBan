@@ -1,0 +1,13 @@
+name: DeathBan
+description: ${project.description}
+author: ItsLeMax
+version: ${project.version}
+main: de.max.deathban.init.DeathBan
+api-version: 1.20
+commands:
+  toggle:
+    description: Aktiviert oder deaktiviert, ob Spieler nach dem Tod temporär gesperrt werden
+    usage: /toggle
+    aliases:
+      - toggleban
+      - toggmaledeath
