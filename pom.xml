@@ -11,6 +11,7 @@
 
     <name>DeathBan</name>
     <description>Sorgt dafür, dass Spieler, die sterben, temporär gebannt werden</description>
+    <url>https://dev.fpm-studio.de/</url>
 
     <properties>
         <java.version>1.8</java.version>

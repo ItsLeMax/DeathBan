@@ -2,6 +2,8 @@ name: DeathBan
 description: ${project.description}
 author: ItsLeMax
 version: ${project.version}
+website: ${project.url}
+
 main: de.max.deathban.init.DeathBan
 api-version: 1.20
 commands:
