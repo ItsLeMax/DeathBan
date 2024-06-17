@@ -1,5 +1,6 @@
-package de.max.deathban.init;
+package de.max.deathban.events;
 
+import de.max.deathban.init.Information;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +10,6 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public static void playerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        PlayerDeath.informPlayers(player);
+        Information.informPlayers(player);
     }
 }

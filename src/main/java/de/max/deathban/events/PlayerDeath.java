@@ -1,6 +1,7 @@
-package de.max.deathban.init;
+package de.max.deathban.events;
 
-import net.md_5.bungee.api.chat.TextComponent;
+import de.max.deathban.init.DeathBan;
+import de.max.deathban.init.Information;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,11 +15,10 @@ import java.util.UUID;
 
 public class PlayerDeath implements Listener {
     static HashMap<UUID, Integer> tasks = new HashMap<>();
-    static boolean enabled = false;
 
     @EventHandler
     public static void playerDeath(PlayerDeathEvent event) {
-        if (!enabled) return;
+        if (!Information.enabled) return;
 
         Player player = event.getPlayer();
         if (tasks.containsKey(player.getUniqueId())) return;
@@ -53,26 +53,5 @@ public class PlayerDeath implements Listener {
                 tasks.remove(player.getUniqueId());
             }
         }, 0, 20));
-    }
-
-    /**
-     * Informiert die Spieler über den Status des Toggle-Befehls und dementsprechend, ob der Tod eine Sperre verursacht
-     *
-     * @author ItsLeMax
-     */
-    @SuppressWarnings("deprecation")
-    public static void informPlayers(Player player) {
-        String info = "§3Spieler §7werden zurzeit §emit dem Tod §7nach 5 Minuten für 12 Stunden " + (PlayerDeath.enabled ? "§cgesperrt" : "§anicht gesperrt") + "§7. Dies kann sich mit der Zeit ändern.";
-
-        if (player != null) {
-            player.sendMessage("");
-            player.sendMessage(info);
-            player.sendMessage("");
-            return;
-        }
-
-        Bukkit.broadcast(new TextComponent(""));
-        Bukkit.broadcast(new TextComponent(info));
-        Bukkit.broadcast(new TextComponent(""));
     }
 }

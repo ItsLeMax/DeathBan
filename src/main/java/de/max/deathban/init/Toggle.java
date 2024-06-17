@@ -9,8 +9,8 @@ public class Toggle implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!sender.isOp()) return true;
-        PlayerDeath.enabled = !PlayerDeath.enabled;
-        PlayerDeath.informPlayers(null);
+        Information.enabled = !Information.enabled;
+        Information.informPlayers();
         return true;
     }
 }
