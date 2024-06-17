@@ -7,6 +7,12 @@ import org.bukkit.entity.Player;
 public class Information {
     public static boolean enabled = false;
 
+    /**
+     * Erstellt eine Information, ob die Sperre aktiv ist
+     *
+     * @return Info, ob Sperre aktiv
+     * @author ItsLeMax
+     */
     private static String info() {
         return "§3Spieler §7werden zurzeit §emit dem Tod §7nach 5 Minuten für 12 Stunden " + (enabled ? "§cgesperrt" : "§anicht gesperrt") + "§7. Dies kann sich mit der Zeit ändern.";
     }
