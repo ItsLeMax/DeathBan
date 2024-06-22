@@ -1,0 +1,9 @@
+language: en_US
+
+# This is the time that is needed after ones death for the ban to appear in SECONDS.
+# 0 results in an instant ban.
+# Warnings will only be sent at 5, 3 and 1 minutes.
+timeUntilBan: 300
+
+# This is the time a player gets banned in MINUTES.
+banTime: 720

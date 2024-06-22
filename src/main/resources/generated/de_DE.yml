@@ -1,0 +1,22 @@
+# Lass die Finger von %str%, da es vom Plugin ersetzt wird!
+
+general:
+  init: "[DeathBan] wurde erfolgreich geladen!"
+  noPerms: "Du hast hierfür nicht ausreichend Rechte!"
+notification:
+  info: "Spieler %c% werden zurzeit %c% mit dem Tod %c% nach %a% für %t% %r% %c%. Dies kann sich mit der Zeit ändern."
+  locked: "gesperrt"
+  unlocked: "nicht gesperrt"
+warning:
+  death: "Achtung! Du wirst in 5 Minuten gesperrt!"
+  explanation: "Durch deinen Tod wirst du für 12 Stunden gesperrt."
+  update: "Update"
+  threeMinutes: "Du wirst in 3 Minuten gesperrt."
+  oneMinute: "Du wirst in einer Minute gesperrt."
+  ban: "Durch deinen letzten Tod bist du für 12 Stunden gesperrt."
+  console: "%r% wurde durch seinen Tod gesperrt."
+time:
+  days: "Tage"
+  hours: "Stunden"
+  minutes: "Minuten"
+  seconds: "Sekunden"

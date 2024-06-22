@@ -2,6 +2,7 @@ package de.max.deathban.events;
 
 import de.max.deathban.init.DeathBan;
 import de.max.deathban.init.Information;
+import de.max.ilmlib.init.ConfigLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,10 +24,10 @@ public class PlayerDeath implements Listener {
         Player player = event.getPlayer();
         if (tasks.containsKey(player.getUniqueId())) return;
 
-        final int[] timer = {20 * 60 * 5};
+        final int[] timer = {20 * ConfigLib.getDefaultConfig().getInt("timeUntilBan")};
         player.sendMessage("");
-        player.sendMessage("§c§lAchtung! Du wirst in 5 Minuten gesperrt!");
-        player.sendMessage("§3Durch deinen Tod wirst du für 12 Stunden gesperrt.");
+        player.sendMessage("§c§l" + ConfigLib.lang("warning.death"));
+        player.sendMessage("§3" + ConfigLib.lang("warning.explanation"));
         player.sendMessage("");
 
         tasks.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DeathBan.plugin, () -> {
@@ -35,22 +36,25 @@ public class PlayerDeath implements Listener {
             switch (timer[0]) {
                 case 20 * 60 * 3:
                     player.sendMessage("");
-                    player.sendMessage("§c§lUpdate:");
-                    player.sendMessage("§3Du wirst in 3 Minuten gesperrt.");
+                    player.sendMessage("§c§l" + ConfigLib.lang("warning.update") + ":");
+                    player.sendMessage("§3" + ConfigLib.lang("warning.threeMinutes"));
                     player.sendMessage("");
                     break;
                 case 20 * 60:
                     player.sendMessage("");
-                    player.sendMessage("§c§lUpdate:");
-                    player.sendMessage("§3Du wirst in einer Minute gesperrt.");
+                    player.sendMessage("§c§l" + ConfigLib.lang("warning.update") + ":");
+                    player.sendMessage("§3" + ConfigLib.lang("warning.oneMinute"));
                     player.sendMessage("");
                     break;
             }
 
             if (timer[0] <= 0) {
-                player.ban("§cDurch deinen letzten Tod bist du für 12 Stunden gesperrt." + "\n" + "§7Sollte der Tod ungerecht gewesen sein, kannst du gerne über den Discord (§e8hnXeggWP9§7) um eine Entbannung bitten.", Instant.now().plus(12, ChronoUnit.HOURS), "Plugin", true);
+                player.ban("§c" + ConfigLib.lang("warning.ban"), Instant.now().plus(12, ChronoUnit.HOURS), "Plugin", true);
+
                 Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()));
                 tasks.remove(player.getUniqueId());
+
+                Bukkit.getConsoleSender().sendMessage("§c" + ConfigLib.lang("warning.console").replace("%r%", player.getName()));
             }
         }, 0, 20));
     }
