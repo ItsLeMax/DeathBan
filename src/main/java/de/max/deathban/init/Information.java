@@ -64,6 +64,16 @@ public class Information {
     }
 
     /**
+     * @see #informPlayers(Player)
+     */
+    @SuppressWarnings("deprecation")
+    public static void informPlayers() {
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage(info());
+        Bukkit.broadcastMessage("");
+    }
+
+    /**
      * Informiert die Spieler über den Status des ToggleDeathBan-Befehls und dementsprechend, ob der Tod eine Sperre verursacht
      * <p>
      * Informs the players about the status of the ToggleDeathBan Command and therefor if death results in a ban
@@ -74,15 +84,5 @@ public class Information {
         player.sendMessage("");
         player.sendMessage(info());
         player.sendMessage("");
-    }
-
-    /**
-     * @see #informPlayers(Player)
-     */
-    @SuppressWarnings("deprecation")
-    public static void informPlayers() {
-        Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(info());
-        Bukkit.broadcastMessage("");
     }
 }
