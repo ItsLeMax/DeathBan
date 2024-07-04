@@ -1,11 +1,12 @@
 package de.max.deathban.init;
 
-import de.max.ilmlib.init.ConfigLib;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import static de.max.deathban.init.DeathBan.configLib;
 
 public class Information {
     public static boolean enabled = false;
@@ -19,11 +20,11 @@ public class Information {
      * @author ItsLeMax
      */
     private static String info() {
-        String timeUntilBan = convertTimeToText(ConfigLib.getDefaultConfig().getInt("timeUntilBan"), true);
-        String banTime = convertTimeToText(ConfigLib.getDefaultConfig().getInt("banTime"), false);
-        String replacement = enabled ? ("§c" + ConfigLib.lang("notification.locked")) : ("§a" + ConfigLib.lang("notification.unlocked"));
+        String timeUntilBan = convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
+        String banTime = convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
+        String replacement = enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked"));
 
-        return "§3" + ConfigLib.lang("notification.info")
+        return "§3" + configLib.lang("notification.info")
                 .replaceFirst("%t%", banTime)
                 .replaceFirst("%r%", replacement)
                 .replaceFirst("%a%", timeUntilBan)
@@ -55,10 +56,10 @@ public class Information {
         long minutes = unit.toMinutes(time) - (unit.toHours(time) * 60);
         long seconds = unit.toSeconds(time) - (unit.toMinutes(time) * 60);
 
-        if (days != 0) conversion.add(days + " " + ConfigLib.lang("time.days"));
-        if (hours != 0) conversion.add(hours + " " + ConfigLib.lang("time.hours"));
-        if (minutes != 0) conversion.add(minutes + " " + ConfigLib.lang("time.minutes"));
-        if (seconds != 0) conversion.add(seconds + " " + ConfigLib.lang("time.seconds"));
+        if (days != 0) conversion.add(days + " " + configLib.lang("time.days"));
+        if (hours != 0) conversion.add(hours + " " + configLib.lang("time.hours"));
+        if (minutes != 0) conversion.add(minutes + " " + configLib.lang("time.minutes"));
+        if (seconds != 0) conversion.add(seconds + " " + configLib.lang("time.seconds"));
 
         return conversion.toString().replace("[", "").replace("]", "");
     }

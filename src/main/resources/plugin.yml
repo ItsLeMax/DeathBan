@@ -4,6 +4,7 @@ author: ItsLeMax
 version: ${project.version}
 website: ${project.url}
 
+depend: [ ILMLib ]
 main: de.max.deathban.init.DeathBan
 api-version: 1.20
 commands:

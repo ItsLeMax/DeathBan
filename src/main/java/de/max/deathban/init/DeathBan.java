@@ -9,21 +9,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DeathBan extends JavaPlugin {
     public static DeathBan plugin;
+    public static ConfigLib configLib;
 
     @Override
     @SuppressWarnings("all")
     public void onEnable() {
         plugin = this;
-        ConfigLib.saveDefaultConfig();
 
-        ILMLib.init(this);
-        ConfigLib.create("de_DE", "en_US", "custom_lang");
+        configLib = new ILMLib(plugin).getConfigLib();
+        configLib
+                .createDefaults("config")
+                .createInsideDirectory("languages", "de_DE", "en_US", "custom_lang");
 
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
 
         getCommand("toggledeathban").setExecutor(new ToggleDeathBan());
 
-        Bukkit.getConsoleSender().sendMessage("§6" + ConfigLib.lang("general.init"));
+        Bukkit.getConsoleSender().sendMessage("§6" + configLib.lang("general.init"));
     }
 }
