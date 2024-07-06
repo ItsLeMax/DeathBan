@@ -1,3 +1,6 @@
+# This will set the language of the plugin.
+# You will find different language files inside \languages\.
+# Write their file name (without *.yml) down below to use the respective language.
 language: en_US
 
 # This is the time that is needed after ones death for the ban to appear in SECONDS.
@@ -7,10 +10,10 @@ timeUntilBan: 300
 # This is the time a player gets banned in MINUTES.
 banTime: 720
 
-# This sends reminders to the player of how much time is left until the ban in MINUTES
+# This sends reminders to the player of how much time is left until the ban in MINUTES.
 reminders:
   - 3
   - 1
 
-# This bans the player immediately on second death
+# This bans the player immediately on second death.
 secondDeathImmediate: true
