@@ -17,3 +17,4 @@ Bans the player of a Minecraft server on death temporarily
 ![v1 1_2](https://github.com/ItsLeMax/DeathBan/assets/80857459/85f90cb6-d877-43e0-9537-e71fc5fd913b)\
 *`/toggleban is an alias next to /toggledeath and the default /toggledeathban`*
 ![v1 1_3](https://github.com/ItsLeMax/DeathBan/assets/80857459/12995206-7db0-4e0a-9d4b-9e452c3e4425)
+![v1 1_4](https://github.com/ItsLeMax/DeathBan/assets/80857459/7ebfb768-ddf8-4b82-842e-43ab29e2dc84)
