@@ -1,5 +1,6 @@
-package de.max.deathban.init;
+package de.max.deathban.commands;
 
+import de.max.deathban.init.Methods;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,8 +21,8 @@ public class ToggleDeathBan implements CommandExecutor {
             return true;
         }
 
-        Information.enabled = !Information.enabled;
-        Information.informPlayers();
+        Methods.enabled = !Methods.enabled;
+        Methods.informPlayers();
         return true;
     }
 }

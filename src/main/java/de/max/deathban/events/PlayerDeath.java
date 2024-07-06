@@ -1,7 +1,7 @@
 package de.max.deathban.events;
 
 import de.max.deathban.init.DeathBan;
-import de.max.deathban.init.Information;
+import de.max.deathban.init.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class PlayerDeath implements Listener {
 
     @EventHandler
     public static void playerDeath(PlayerDeathEvent event) {
-        if (!Information.enabled) return;
+        if (!Methods.enabled) return;
 
         FileConfiguration config = configLib.getConfig("config");
 
@@ -38,8 +38,8 @@ public class PlayerDeath implements Listener {
 
         if (timeUntilBan != 0) {
             player.sendMessage("");
-            player.sendMessage("§c§l" + configLib.lang("warning.death").replace("%a%", Information.timeUntilBan));
-            player.sendMessage("§3" + configLib.lang("warning.explanation").replace("%t%", Information.banTime));
+            player.sendMessage("§c§l" + configLib.lang("warning.death").replace("%a%", Methods.timeUntilBan));
+            player.sendMessage("§3" + configLib.lang("warning.explanation").replace("%t%", Methods.banTime));
             player.sendMessage("");
         }
 
@@ -50,7 +50,7 @@ public class PlayerDeath implements Listener {
                 if (timer[0] == 20 * 60 * minute) {
                     player.sendMessage("");
                     player.sendMessage("§c§l" + configLib.lang("warning.update") + ":");
-                    player.sendMessage("§3" + configLib.lang("warning.timeUntilBan").replace("%a%", Information.convertTimeToText(timer[0] / 20, true)));
+                    player.sendMessage("§3" + configLib.lang("warning.timeUntilBan").replace("%a%", Methods.convertTimeToText(timer[0] / 20, true)));
                     player.sendMessage("");
                 }
             }
@@ -66,7 +66,7 @@ public class PlayerDeath implements Listener {
      */
     @SuppressWarnings("all")
     private static void getHisAss(Player player) {
-        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", Information.banTime),
+        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", Methods.banTime),
                 Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES),
                 "Plugin",
                 true

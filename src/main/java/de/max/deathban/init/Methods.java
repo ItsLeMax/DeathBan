@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import static de.max.deathban.init.DeathBan.configLib;
 
-public class Information {
+public class Methods {
     public static boolean enabled = false;
     public static final String banTime = convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
     public static String timeUntilBan = convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
@@ -17,25 +17,6 @@ public class Information {
         if (timeUntilBan.isEmpty()) {
             timeUntilBan = "0 " + configLib.lang("time.seconds");
         }
-    }
-
-    /**
-     * Erstellt eine Information, ob die Sperre aktiv ist
-     * <p>
-     * Creates an information if the banning is enabled
-     *
-     * @return Info, ob Sperre aktiv <p> Info if banning is enabled
-     * @author ItsLeMax
-     */
-    private static String info() {
-        return "§3" + configLib.lang("notification.info")
-                .replaceFirst("%t%", banTime)
-                .replaceFirst("%r%", enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked")))
-                .replaceFirst("%a%", timeUntilBan)
-                .replaceFirst("%c% ", "§7")
-                .replaceFirst("%c% ", "§e")
-                .replaceFirst("%c% ", "§7")
-                .replaceFirst(" %c%", "§7");
     }
 
     /**
@@ -89,5 +70,24 @@ public class Information {
         player.sendMessage("");
         player.sendMessage(info());
         player.sendMessage("");
+    }
+
+    /**
+     * Erstellt eine Methods, ob die Sperre aktiv ist
+     * <p>
+     * Creates an information if the banning is enabled
+     *
+     * @return Info, ob Sperre aktiv <p> Info if banning is enabled
+     * @author ItsLeMax
+     */
+    private static String info() {
+        return "§3" + configLib.lang("notification.info")
+                .replaceFirst("%t%", banTime)
+                .replaceFirst("%r%", enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked")))
+                .replaceFirst("%a%", timeUntilBan)
+                .replaceFirst("%c% ", "§7")
+                .replaceFirst("%c% ", "§e")
+                .replaceFirst("%c% ", "§7")
+                .replaceFirst(" %c%", "§7");
     }
 }

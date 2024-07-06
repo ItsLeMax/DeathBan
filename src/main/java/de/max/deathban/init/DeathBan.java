@@ -1,5 +1,6 @@
 package de.max.deathban.init;
 
+import de.max.deathban.commands.ToggleDeathBan;
 import de.max.deathban.events.PlayerDeath;
 import de.max.deathban.events.PlayerJoin;
 import de.max.ilmlib.init.ConfigLib;
