@@ -10,6 +10,14 @@ import static de.max.deathban.init.DeathBan.configLib;
 
 public class Information {
     public static boolean enabled = false;
+    public static final String banTime = convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
+    public static String timeUntilBan = convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
+
+    static {
+        if (timeUntilBan.isEmpty()) {
+            timeUntilBan = "0 " + configLib.lang("time.seconds");
+        }
+    }
 
     /**
      * Erstellt eine Information, ob die Sperre aktiv ist
@@ -20,13 +28,9 @@ public class Information {
      * @author ItsLeMax
      */
     private static String info() {
-        String timeUntilBan = convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
-        String banTime = convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
-        String replacement = enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked"));
-
         return "§3" + configLib.lang("notification.info")
                 .replaceFirst("%t%", banTime)
-                .replaceFirst("%r%", replacement)
+                .replaceFirst("%r%", enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked")))
                 .replaceFirst("%a%", timeUntilBan)
                 .replaceFirst("%c% ", "§7")
                 .replaceFirst("%c% ", "§e")
@@ -39,16 +43,16 @@ public class Information {
      * <p>
      * Converts a time to the proper text
      *
-     * @param time       Zeit <p> Time
-     * @param useSeconds Handelt es sich um Sekunden?
-     *                   <p>
-     *                   Is is seconds?
+     * @param time            Zeit <p> Time
+     * @param providedSeconds Wurden Sekunden statt Minuten übergeben?
+     *                        <p>
+     *                        Were seconds instead of minutes given?
      * @return Konvertierte Zeit <p> Converted Time
      * @link <a href="https://stackoverflow.com/questions/11357945/java-convert-seconds-into-day-hour-minute-and-seconds-using-timeunit">StackOverflow</a>
      * @author StackOverflow
      */
-    private static String convertTimeToText(int time, boolean useSeconds) {
-        TimeUnit unit = useSeconds ? TimeUnit.SECONDS : TimeUnit.MINUTES;
+    public static String convertTimeToText(int time, boolean providedSeconds) {
+        TimeUnit unit = providedSeconds ? TimeUnit.SECONDS : TimeUnit.MINUTES;
         ArrayList<String> conversion = new ArrayList<>();
 
         int days = (int) unit.toDays(time);

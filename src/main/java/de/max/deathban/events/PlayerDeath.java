@@ -3,6 +3,7 @@ package de.max.deathban.events;
 import de.max.deathban.init.DeathBan;
 import de.max.deathban.init.Information;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,47 +17,64 @@ import java.util.UUID;
 import static de.max.deathban.init.DeathBan.configLib;
 
 public class PlayerDeath implements Listener {
-    static HashMap<UUID, Integer> tasks = new HashMap<>();
+    static HashMap<UUID, Integer> bansInProcess = new HashMap<>();
 
     @EventHandler
     public static void playerDeath(PlayerDeathEvent event) {
         if (!Information.enabled) return;
 
+        FileConfiguration config = configLib.getConfig("config");
+
         Player player = event.getPlayer();
-        if (tasks.containsKey(player.getUniqueId())) return;
+        if (bansInProcess.containsKey(player.getUniqueId())) {
+            if (config.getBoolean("secondDeathImmediate")) {
+                getHisAss(player);
+            }
+            return;
+        }
 
-        final int[] timer = {20 * configLib.getConfig("config").getInt("timeUntilBan")};
-        player.sendMessage("");
-        player.sendMessage("§c§l" + configLib.lang("warning.death"));
-        player.sendMessage("§3" + configLib.lang("warning.explanation"));
-        player.sendMessage("");
+        int timeUntilBan = config.getInt("timeUntilBan");
+        final int[] timer = {20 * timeUntilBan};
 
-        tasks.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DeathBan.plugin, () -> {
+        if (timeUntilBan != 0) {
+            player.sendMessage("");
+            player.sendMessage("§c§l" + configLib.lang("warning.death").replace("%a%", Information.timeUntilBan));
+            player.sendMessage("§3" + configLib.lang("warning.explanation").replace("%t%", Information.banTime));
+            player.sendMessage("");
+        }
+
+        bansInProcess.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(DeathBan.plugin, () -> {
             timer[0] = timer[0] - 20;
 
-            switch (timer[0]) {
-                case 20 * 60 * 3:
+            for (int minute : config.getIntegerList("reminders")) {
+                if (timer[0] == 20 * 60 * minute) {
                     player.sendMessage("");
                     player.sendMessage("§c§l" + configLib.lang("warning.update") + ":");
-                    player.sendMessage("§3" + configLib.lang("warning.threeMinutes"));
+                    player.sendMessage("§3" + configLib.lang("warning.timeUntilBan").replace("%a%", Information.convertTimeToText(timer[0] / 20, true)));
                     player.sendMessage("");
-                    break;
-                case 20 * 60:
-                    player.sendMessage("");
-                    player.sendMessage("§c§l" + configLib.lang("warning.update") + ":");
-                    player.sendMessage("§3" + configLib.lang("warning.oneMinute"));
-                    player.sendMessage("");
-                    break;
+                }
             }
 
-            if (timer[0] <= 0) {
-                player.ban("§c" + configLib.lang("warning.ban"), Instant.now().plus(12, ChronoUnit.HOURS), "Plugin", true);
-
-                Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()));
-                tasks.remove(player.getUniqueId());
-
-                Bukkit.getConsoleSender().sendMessage("§c" + configLib.lang("warning.console").replace("%r%", player.getName()));
-            }
+            if (timer[0] <= 0) getHisAss(player);
         }, 0, 20));
+    }
+
+    /**
+     * Bannt dem Spieler vom Server und informiert die Konsole
+     * <p>
+     * Bans the player from the server and informs the console
+     */
+    @SuppressWarnings("all")
+    private static void getHisAss(Player player) {
+        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", Information.banTime),
+                Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES),
+                "Plugin",
+                true
+        );
+
+        Bukkit.getScheduler().cancelTask(bansInProcess.get(player.getUniqueId()));
+        bansInProcess.remove(player.getUniqueId());
+
+        Bukkit.getConsoleSender().sendMessage("§c" + configLib.lang("warning.console").replace("%r%", player.getName()));
     }
 }

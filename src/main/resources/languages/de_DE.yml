@@ -2,18 +2,19 @@
 
 general:
   init: "[DeathBan] wurde erfolgreich geladen!"
+commands:
   noPerms: "Du hast hierfür nicht ausreichend Rechte!"
+  tooManyArgs: "Du hast zu viele Argumente angegeben!"
 notification:
   info: "Spieler %c% werden zurzeit %c% mit dem Tod %c% nach %a% für %t% %r% %c%. Dies kann sich mit der Zeit ändern."
   locked: "gesperrt"
   unlocked: "nicht gesperrt"
 warning:
-  death: "Achtung! Du wirst in 5 Minuten gesperrt!"
-  explanation: "Durch deinen Tod wirst du für 12 Stunden gesperrt."
+  death: "Achtung! Du wirst in %a% gesperrt!"
+  explanation: "Durch deinen Tod wirst du für %t% gesperrt."
   update: "Update"
-  threeMinutes: "Du wirst in 3 Minuten gesperrt."
-  oneMinute: "Du wirst in einer Minute gesperrt."
-  ban: "Durch deinen letzten Tod bist du für 12 Stunden gesperrt."
+  timeUntilBan: "Du wirst in %a% gesperrt."
+  ban: "Durch deinen letzten Tod wurdest du für %t% gesperrt."
   console: "%r% wurde durch seinen Tod gesperrt."
 time:
   days: "Tage"
