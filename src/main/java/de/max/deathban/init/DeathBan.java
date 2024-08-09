@@ -3,8 +3,8 @@ package de.max.deathban.init;
 import de.max.deathban.commands.ToggleDeathBan;
 import de.max.deathban.events.PlayerDeath;
 import de.max.deathban.events.PlayerJoin;
-import de.max.ilmlib.init.ConfigLib;
 import de.max.ilmlib.init.ILMLib;
+import de.max.ilmlib.libraries.ConfigLib;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
