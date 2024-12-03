@@ -1,5 +1,7 @@
 # DeathBan
 
+**Minecraft Version: 1.20.***
+
 Bans the player of a Minecraft server on death temporarily
 
 ![1 0 0-death](https://github.com/user-attachments/assets/d869c9a5-4f26-4893-b23a-3901e9027187)
