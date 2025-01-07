@@ -10,7 +10,8 @@
 # Socials: @ItsLeMax
 
 general:
-  init: "" # [DeathBan] has been loaded successfully!
+  init: "" # %p% has been loaded successfully!
+  error: "" # Error!
 commands:
   noPerms: "" # You do not have enough permissions!
   tooManyArgs: "" # You provided too many arguments!

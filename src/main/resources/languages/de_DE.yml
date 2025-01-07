@@ -1,7 +1,8 @@
 # Lass die Finger von %str%, da es vom Plugin ersetzt wird!
 
 general:
-  init: "[DeathBan] wurde erfolgreich geladen!"
+  init: "%p% wurde erfolgreich geladen!"
+  error: "Fehler!"
 commands:
   noPerms: "Du hast hierfür nicht ausreichend Rechte!"
   tooManyArgs: "Du hast zu viele Argumente angegeben!"
