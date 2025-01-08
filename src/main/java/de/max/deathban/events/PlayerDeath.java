@@ -55,7 +55,9 @@ public class PlayerDeath implements Listener {
                 }
             }
 
-            if (timer[0] <= 0) getHisAss(player);
+            if (timer[0] <= 0) {
+                getHisAss(player);
+            }
         }, 0, 20));
     }
 
