@@ -1,9 +1,8 @@
-# Lass die Finger von %str%, da es vom Plugin ersetzt wird!
+# Lass die Finger von %%, da es vom Plugin ersetzt wird!
 
-general:
-  init: "%p% wurde erfolgreich geladen!"
-  error: "Fehler!"
+init: "%p% wurde erfolgreich geladen!"
 commands:
+  error: "Fehler!"
   noPerms: "Du hast hierfür nicht ausreichend Rechte!"
   tooManyArgs: "Du hast zu viele Argumente angegeben!"
 notification:

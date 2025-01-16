@@ -7,18 +7,20 @@ import de.max.ilmlib.libraries.ConfigLib;
 import de.max.ilmlib.libraries.MessageLib;
 import de.max.ilmlib.utility.ErrorTemplate;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
 
 public final class DeathBan extends JavaPlugin {
-
     public static DeathBan plugin;
+
     public static ConfigLib configLib;
     public static MessageLib messageLib;
 
     @Override
-    @SuppressWarnings("all")
     public void onEnable() {
         plugin = this;
+
         configLib = new ConfigLib()
                 .setPlugin(this)
                 .createDefaults("config")
@@ -29,13 +31,15 @@ public final class DeathBan extends JavaPlugin {
                 .createDefaults()
                 .setPrefix("§6DeathBan §7»", true);
 
-        new ErrorTemplate().setSuffix(configLib.lang("general.error"));
+        new ErrorTemplate().setSuffix(configLib.lang("commands.error"));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
 
-        getCommand("toggledeathban").setExecutor(new ToggleDeathBan());
+        @Nullable PluginCommand command = getCommand("toggledeathban");
+        assert command != null;
+        command.setExecutor(new ToggleDeathBan());
 
-        Bukkit.getConsoleSender().sendMessage("§6" + configLib.lang("general.init").replace("%p%", "[DeathBan]"));
+        Bukkit.getConsoleSender().sendMessage("§6" + configLib.lang("init").replace("%p%", "[DeathBan]"));
     }
 }

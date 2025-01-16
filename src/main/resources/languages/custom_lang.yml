@@ -1,4 +1,4 @@
-# Do not touch %str% as it does get replaced from the plugin!
+# Do not touch %% as it does get replaced from the plugin!
 
 # You can use this file to translate it into other languages that are not provided.
 # The english "original" is behind each text.
@@ -6,13 +6,12 @@
 # Do not forget to add "custom_lang" to "language" inside the config.yml.
 
 # If interested: you may send this file in for it to become official.
-# GitHub: https://github.com/ItsLeMax/StorageTerminal/
+# GitHub: https://github.com/ItsLeMax/DeathBan/
 # Socials: @ItsLeMax
 
-general:
-  init: "" # %p% has been loaded successfully!
-  error: "" # Error!
+init: "" # %p% has been loaded successfully!
 commands:
+  error: "" # Error!
   noPerms: "" # You do not have enough permissions!
   tooManyArgs: "" # You provided too many arguments!
 notification:

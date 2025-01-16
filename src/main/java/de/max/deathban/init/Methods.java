@@ -30,7 +30,7 @@ public class Methods {
      *                        Were seconds instead of minutes given?
      * @return Konvertierte Zeit <p> Converted Time
      * @link <a href="https://stackoverflow.com/questions/11357945/java-convert-seconds-into-day-hour-minute-and-seconds-using-timeunit">StackOverflow</a>
-     * @author StackOverflow
+     * @author StackOverflow, ItsLeMax
      */
     public static String convertTimeToText(int time, boolean providedSeconds) {
         TimeUnit unit = providedSeconds ? TimeUnit.SECONDS : TimeUnit.MINUTES;

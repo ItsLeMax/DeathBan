@@ -14,13 +14,13 @@ import static de.max.deathban.init.DeathBan.messageLib;
 public class ToggleDeathBan implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length > 0) {
-            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("commands.tooManyArgs"), new HoverText("/toggledeathban"));
+        if (!sender.hasPermission("deathban.toggle")) {
+            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("commands.noPerms"));
             return true;
         }
 
-        if (!sender.hasPermission("deathban.toggle")) {
-            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("general.noPerms"));
+        if (args.length > 0) {
+            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("commands.tooManyArgs"), new HoverText("/toggledeathban"));
             return true;
         }
 
