@@ -1,8 +1,8 @@
 package de.max.deathban.commands;
 
 import de.max.deathban.init.Methods;
+import de.max.ilmlib.init.HoverText;
 import de.max.ilmlib.libraries.MessageLib;
-import de.max.ilmlib.utility.HoverText;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
