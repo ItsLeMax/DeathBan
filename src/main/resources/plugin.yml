@@ -9,7 +9,7 @@ main: de.max.deathban.init.DeathBan
 api-version: 1.20
 commands:
   toggledeathban:
-    description: Aktiviert oder deaktiviert, ob Spieler nach dem Tod temporär gesperrt werden
+    description: Toggles the plugin functionality with a hint to everyone
     usage: /toggledeathban
     aliases:
       - toggleban
