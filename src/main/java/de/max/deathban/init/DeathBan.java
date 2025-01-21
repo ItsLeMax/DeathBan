@@ -26,8 +26,8 @@ public final class DeathBan extends JavaPlugin {
 
         messageLib = new MessageLib()
                 .addSpacing()
-                .createDefaults()
                 .setPrefix("§6DeathBan §7»", true)
+                .createDefaults()
                 .setSuffix(MessageLib.Template.ERROR, configLib.lang("commands.error"));
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
