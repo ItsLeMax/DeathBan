@@ -1,21 +1,14 @@
 package de.max.deathban.init;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static de.max.deathban.init.DeathBan.configLib;
 
 public class Methods {
-    public static boolean enabled = false;
-    public static final String banTime = convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
-    public static String timeUntilBan = convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
-
     static {
-        if (timeUntilBan.isEmpty()) {
-            timeUntilBan = "0 " + configLib.lang("time.seconds");
+        if (DeathBan.timeUntilBan.isEmpty()) {
+            DeathBan.timeUntilBan = "0 " + configLib.lang("time.seconds");
         }
     }
 
@@ -50,41 +43,18 @@ public class Methods {
     }
 
     /**
-     * @see #informPlayers(Player)
-     */
-    @SuppressWarnings("deprecation")
-    public static void informPlayers() {
-        Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(info());
-        Bukkit.broadcastMessage("");
-    }
-
-    /**
-     * Informiert die Spieler über den Status des ToggleDeathBan-Befehls und dementsprechend, ob der Tod eine Sperre verursacht
-     * <p>
-     * Informs the players about the status of the ToggleDeathBan Command and therefor if death results in a ban
-     *
-     * @author ItsLeMax
-     */
-    public static void informPlayers(Player player) {
-        player.sendMessage("");
-        player.sendMessage(info());
-        player.sendMessage("");
-    }
-
-    /**
-     * Erstellt eine Methods, ob die Sperre aktiv ist
+     * Erstellt eine Information, ob die Sperre aktiv ist
      * <p>
      * Creates an information if the banning is enabled
      *
      * @return Info, ob Sperre aktiv <p> Info if banning is enabled
      * @author ItsLeMax
      */
-    private static String info() {
+    public static String info() {
         return "§3" + configLib.lang("notification.info")
-                .replaceFirst("%t%", banTime)
-                .replaceFirst("%r%", enabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked")))
-                .replaceFirst("%a%", timeUntilBan)
+                .replaceFirst("%t%", DeathBan.banTime)
+                .replaceFirst("%r%", DeathBan.banEnabled ? ("§c" + configLib.lang("notification.locked")) : ("§a" + configLib.lang("notification.unlocked")))
+                .replaceFirst("%a%", DeathBan.timeUntilBan)
                 .replaceFirst("%c% ", "§7")
                 .replaceFirst("%c% ", "§e")
                 .replaceFirst("%c% ", "§7")

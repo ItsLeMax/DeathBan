@@ -21,25 +21,28 @@ public class PlayerDeath implements Listener {
 
     @EventHandler
     public static void playerDeath(PlayerDeathEvent event) {
-        if (!Methods.enabled) return;
+        if (!DeathBan.banEnabled) {
+            return;
+        }
 
         FileConfiguration config = configLib.getConfig("config");
-
         Player player = event.getPlayer();
+
         if (bansInProcess.containsKey(player.getUniqueId())) {
             if (config.getBoolean("secondDeathImmediate")) {
                 getHisAss(player);
             }
+
             return;
         }
 
-        int timeUntilBan = config.getInt("timeUntilBan");
+        final int timeUntilBan = config.getInt("timeUntilBan");
         final int[] timer = {20 * timeUntilBan};
 
         if (timeUntilBan != 0) {
             player.sendMessage("");
-            player.sendMessage("§c§l" + configLib.lang("warning.death").replace("%a%", Methods.timeUntilBan));
-            player.sendMessage("§3" + configLib.lang("warning.explanation").replace("%t%", Methods.banTime));
+            player.sendMessage("§c§l" + configLib.lang("warning.death").replace("%a%", DeathBan.timeUntilBan));
+            player.sendMessage("§3" + configLib.lang("warning.explanation").replace("%t%", DeathBan.banTime));
             player.sendMessage("");
         }
 
@@ -68,7 +71,7 @@ public class PlayerDeath implements Listener {
      */
     @SuppressWarnings("all")
     private static void getHisAss(Player player) {
-        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", Methods.banTime),
+        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", DeathBan.banTime),
                 Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES),
                 "Plugin",
                 true

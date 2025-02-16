@@ -6,9 +6,7 @@ import de.max.deathban.events.PlayerJoin;
 import de.max.ilmlib.libraries.ConfigLib;
 import de.max.ilmlib.libraries.MessageLib;
 import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.Nullable;
 
 public final class DeathBan extends JavaPlugin {
     public static DeathBan plugin;
@@ -16,7 +14,12 @@ public final class DeathBan extends JavaPlugin {
     public static ConfigLib configLib;
     public static MessageLib messageLib;
 
+    public static boolean banEnabled = false;
+    public static String banTime;
+    public static String timeUntilBan;
+
     @Override
+    @SuppressWarnings("ConstantConditions")
     public void onEnable() {
         plugin = this;
 
@@ -30,12 +33,13 @@ public final class DeathBan extends JavaPlugin {
                 .createDefaults()
                 .setSuffix(MessageLib.Template.ERROR, configLib.lang("commands.error"));
 
+        banTime = Methods.convertTimeToText(configLib.getConfig("config").getInt("banTime"), false);
+        timeUntilBan = Methods.convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
+
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
 
-        @Nullable PluginCommand command = getCommand("toggledeathban");
-        assert command != null;
-        command.setExecutor(new ToggleDeathBan());
+        getCommand("toggledeathban").setExecutor(new ToggleDeathBan());
 
         Bukkit.getConsoleSender().sendMessage("§6" + configLib.lang("init").replace("%p%", "[DeathBan]"));
     }
