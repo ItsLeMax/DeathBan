@@ -36,8 +36,8 @@ public class PlayerDeath implements Listener {
             return;
         }
 
-        final int timeUntilBan = config.getInt("timeUntilBan");
-        final int[] timer = {20 * timeUntilBan};
+        int timeUntilBan = config.getInt("timeUntilBan");
+        int[] timer = {20 * timeUntilBan};
 
         if (timeUntilBan != 0) {
             player.sendMessage("");
