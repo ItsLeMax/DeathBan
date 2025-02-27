@@ -71,7 +71,7 @@ public class PlayerDeath implements Listener {
      */
     @SuppressWarnings("all")
     private static void getHisAss(Player player) {
-        player.ban("§c" + configLib.lang("warning.ban").replace("%t%", DeathBan.banTime),
+        player.ban(DeathBan.banReason,
                 Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES),
                 "Plugin",
                 true

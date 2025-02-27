@@ -25,6 +25,7 @@ warning:
   timeUntilBan: "" # You will be banned in %a%.
   ban: "" # You were banned from this server because of your death for %t%.
   console: "" # %r% was banned due to his death.
+  shutdown: "" # %r% was unbanned to prevent a permanent ban.
 time:
   days: "" # days
   hours: "" # hours

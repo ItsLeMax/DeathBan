@@ -6,12 +6,6 @@ import java.util.concurrent.TimeUnit;
 import static de.max.deathban.init.DeathBan.configLib;
 
 public class Methods {
-    static {
-        if (DeathBan.timeUntilBan.isEmpty()) {
-            DeathBan.timeUntilBan = "0 " + configLib.lang("time.seconds");
-        }
-    }
-
     /**
      * Konvertiert eine Zeit zum entsprechenden Text
      * <p>

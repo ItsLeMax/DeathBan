@@ -16,6 +16,7 @@ warning:
   timeUntilBan: "Du wirst in %a% gesperrt."
   ban: "Durch deinen letzten Tod wurdest du für %t% gesperrt."
   console: "%r% wurde durch seinen Tod gesperrt."
+  shutdown: "%r% wurde entbannt, um einen permanenten Bann zu verhindern."
 time:
   days: "Tage"
   hours: "Stunden"
