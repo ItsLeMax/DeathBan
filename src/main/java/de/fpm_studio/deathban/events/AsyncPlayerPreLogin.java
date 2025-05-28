@@ -1,7 +1,7 @@
-package de.max.deathban.events;
+package de.fpm_studio.deathban.events;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
-import de.max.deathban.init.DeathBan;
+import de.fpm_studio.deathban.DeathBan;
 import io.papermc.paper.ban.BanListType;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-import static de.max.deathban.init.DeathBan.configLib;
+import static de.fpm_studio.deathban.DeathBan.configLib;
 
 public class AsyncPlayerPreLogin implements Listener {
     @EventHandler

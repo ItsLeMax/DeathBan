@@ -1,10 +1,11 @@
-package de.max.deathban.init;
+package de.fpm_studio.deathban;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
-import de.max.deathban.commands.ToggleDeathBan;
-import de.max.deathban.events.AsyncPlayerPreLogin;
-import de.max.deathban.events.PlayerDeath;
-import de.max.deathban.events.PlayerJoin;
+import de.fpm_studio.deathban.commands.ToggleDeathBan;
+import de.fpm_studio.deathban.events.AsyncPlayerPreLogin;
+import de.fpm_studio.deathban.events.PlayerDeath;
+import de.fpm_studio.deathban.events.PlayerJoin;
+import de.fpm_studio.deathban.util.Methods;
 import de.max.ilmlib.libraries.ConfigLib;
 import de.max.ilmlib.libraries.MessageLib;
 import io.papermc.paper.ban.BanListType;

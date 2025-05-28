@@ -1,9 +1,11 @@
-package de.max.deathban.init;
+package de.fpm_studio.deathban.util;
+
+import de.fpm_studio.deathban.DeathBan;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static de.max.deathban.init.DeathBan.configLib;
+import static de.fpm_studio.deathban.DeathBan.configLib;
 
 public class Methods {
     /**

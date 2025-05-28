@@ -5,7 +5,7 @@ version: ${project.version}
 website: ${project.url}
 
 depend: [ ILMLib ]
-main: de.max.deathban.init.DeathBan
+main: de.fpm_studio.deathban.DeathBan
 api-version: 1.20
 commands:
   toggledeathban:

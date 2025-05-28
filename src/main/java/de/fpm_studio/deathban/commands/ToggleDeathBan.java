@@ -1,7 +1,7 @@
-package de.max.deathban.commands;
+package de.fpm_studio.deathban.commands;
 
-import de.max.deathban.init.DeathBan;
-import de.max.deathban.init.Methods;
+import de.fpm_studio.deathban.DeathBan;
+import de.fpm_studio.deathban.util.Methods;
 import de.max.ilmlib.init.HoverText;
 import de.max.ilmlib.libraries.MessageLib;
 import org.bukkit.Bukkit;
@@ -10,8 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import static de.max.deathban.init.DeathBan.configLib;
-import static de.max.deathban.init.DeathBan.messageLib;
+import static de.fpm_studio.deathban.DeathBan.configLib;
+import static de.fpm_studio.deathban.DeathBan.messageLib;
 
 public class ToggleDeathBan implements CommandExecutor {
     @Override

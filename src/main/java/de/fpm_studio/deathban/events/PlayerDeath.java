@@ -1,7 +1,7 @@
-package de.max.deathban.events;
+package de.fpm_studio.deathban.events;
 
-import de.max.deathban.init.DeathBan;
-import de.max.deathban.init.Methods;
+import de.fpm_studio.deathban.DeathBan;
+import de.fpm_studio.deathban.util.Methods;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.UUID;
 
-import static de.max.deathban.init.DeathBan.configLib;
+import static de.fpm_studio.deathban.DeathBan.configLib;
 
 public class PlayerDeath implements Listener {
     static HashMap<UUID, Integer> bansInProcess = new HashMap<>();

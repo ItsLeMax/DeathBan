@@ -1,6 +1,6 @@
-package de.max.deathban.events;
+package de.fpm_studio.deathban.events;
 
-import de.max.deathban.init.Methods;
+import de.fpm_studio.deathban.util.Methods;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
