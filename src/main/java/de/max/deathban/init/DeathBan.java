@@ -2,6 +2,7 @@ package de.max.deathban.init;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import de.max.deathban.commands.ToggleDeathBan;
+import de.max.deathban.events.AsyncPlayerPreLogin;
 import de.max.deathban.events.PlayerDeath;
 import de.max.deathban.events.PlayerJoin;
 import de.max.ilmlib.libraries.ConfigLib;
@@ -10,8 +11,6 @@ import io.papermc.paper.ban.BanListType;
 import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Objects;
 
 public final class DeathBan extends JavaPlugin {
     public static DeathBan plugin;
@@ -43,6 +42,7 @@ public final class DeathBan extends JavaPlugin {
         timeUntilBan = Methods.convertTimeToText(configLib.getConfig("config").getInt("timeUntilBan"), true);
         banReason = "§c" + configLib.lang("warning.ban").replace("%t%", DeathBan.banTime);
 
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(), plugin);
 
@@ -55,11 +55,11 @@ public final class DeathBan extends JavaPlugin {
     @SuppressWarnings("deprecation")
     public void onDisable() {
         for (BanEntry<? super PlayerProfile> ban : Bukkit.getBanList(BanListType.PROFILE).getEntries()) {
-            if (!Objects.equals(ban.getReason(), banReason)) {
+            if (ban.getReason() != null && !ban.getReason().equals(banReason)) {
                 continue;
             }
 
-            Bukkit.getConsoleSender().sendMessage("§c[!] §c" + configLib.lang("warning.shutdown").replace("%r%", ban.getTarget()));
+            Bukkit.getConsoleSender().sendMessage("§c" + configLib.lang("warning.shutdown").replace("%r%", ban.getTarget()));
             Bukkit.getBanList(BanListType.PROFILE).pardon(ban.getTarget());
         }
     }
