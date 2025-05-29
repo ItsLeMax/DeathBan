@@ -1,38 +1,54 @@
 package de.fpm_studio.deathban.commands;
 
-import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.util.Methods;
-import de.max.ilmlib.init.HoverText;
-import de.max.ilmlib.libraries.MessageLib;
+import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.util.MethodHandler;
+import de.fpm_studio.ilmlib.libraries.ConfigLib;
+import de.fpm_studio.ilmlib.libraries.MessageLib;
+import de.fpm_studio.ilmlib.util.HoverText;
+import de.fpm_studio.ilmlib.util.Template;
+import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import static de.fpm_studio.deathban.DeathBan.configLib;
-import static de.fpm_studio.deathban.DeathBan.messageLib;
+/**
+ * Allows to switch between ban and no ban (enabling and disabling the plugin functionality)
+ *
+ * @author ItsLeMax
+ * @since 1.0.0
+ */
+@AllArgsConstructor
+public final class ToggleDeathBan implements CommandExecutor {
 
-public class ToggleDeathBan implements CommandExecutor {
+    private final ConfigLib configLib;
+    private final MessageLib messageLib;
+
+    private final MethodHandler methodHandler;
+
     @Override
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
         if (!sender.hasPermission("deathban.toggle")) {
-            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("commands.noPerms"));
+            messageLib.sendInfo(sender, Template.ERROR, configLib.text("commands.noPerms"));
             return true;
         }
 
         if (args.length > 0) {
-            messageLib.sendInfo(sender, MessageLib.Template.ERROR, configLib.lang("commands.tooManyArgs"), new HoverText("/toggledeathban"));
+            messageLib.sendInfo(sender, Template.ERROR, configLib.text("commands.tooManyArgs"), new HoverText("/toggledeathban"));
             return true;
         }
 
-        DeathBan.banEnabled = !DeathBan.banEnabled;
+        GlobalVariables.banEnabled = !GlobalVariables.banEnabled;
 
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(Methods.info());
+        Bukkit.broadcastMessage(methodHandler.info());
         Bukkit.broadcastMessage("");
 
         return true;
+
     }
+
 }
