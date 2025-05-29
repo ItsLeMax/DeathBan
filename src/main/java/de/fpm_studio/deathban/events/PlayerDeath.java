@@ -69,7 +69,6 @@ public final class PlayerDeath implements Listener {
         }
 
         bansInProcess.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
-
             timer[0] = timer[0] - 20;
 
             for (final int minute : config.getIntegerList("reminders")) {
@@ -79,7 +78,6 @@ public final class PlayerDeath implements Listener {
                 if (timer[0] == 20 * 60 * minute) {
 
                     player.sendMessage("");
-
                     player.sendMessage("§c§l" + configLib.text("warning.update") + ":");
 
                     player.sendMessage("§3" + configLib.text("warning.timeUntilBan")

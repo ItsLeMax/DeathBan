@@ -122,9 +122,8 @@ public final class DeathBan extends JavaPlugin {
 
             // Only unban plugin related bans of course!
 
-            if (ban.getReason() != null && !ban.getReason().equals(GlobalVariables.banReason)) {
+            if (ban.getReason() != null && !ban.getReason().equals(GlobalVariables.banReason))
                 continue;
-            }
 
             Bukkit.getConsoleSender().sendMessage("§c" + configLib.text("warning.shutdown")
                     .replace("%r%", ban.getTarget()));
