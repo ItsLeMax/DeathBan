@@ -14,7 +14,7 @@ Bans the player of a Minecraft server on death temporarily
 2. Put it into the plugins folder of your server.\
    ![plugins](https://github.com/user-attachments/assets/b458f598-a674-4777-8f9e-6e9701f87e5a)
 3. (Optional) Change settings of the `DeathBan/config.yml` as you wish.
-   ![1 0 0-config](https://github.com/user-attachments/assets/cacd246d-2332-429c-aeba-17a2da46f47d)
+   ![1 0 0-config](https://github.com/user-attachments/assets/47321767-7e4a-42ba-8b11-96a8533f9b01)
 
 ## Permissions
 
