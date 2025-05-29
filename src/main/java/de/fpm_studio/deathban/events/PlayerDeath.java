@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contains player death processes
@@ -81,7 +82,7 @@ public final class PlayerDeath implements Listener {
                     player.sendMessage("§c§l" + configLib.text("warning.update") + ":");
 
                     player.sendMessage("§3" + configLib.text("warning.timeUntilBan")
-                            .replace("%a%", methodHandler.convertTimeToText(timer[0] / 20, true))
+                            .replace("%a%", methodHandler.convertTimeToText(timer[0] / 20, TimeUnit.SECONDS))
                     );
 
                     player.sendMessage("");

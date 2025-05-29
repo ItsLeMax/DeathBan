@@ -4,6 +4,7 @@ import de.fpm_studio.deathban.data.GlobalVariables;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -22,16 +23,15 @@ public final class MethodHandler {
     /**
      * Converts a time to the proper text
      *
-     * @param time            Time to convert
-     * @param providedSeconds Were seconds instead of minutes given?
+     * @param time Time to convert
+     * @param unit Unit of the time
      * @return String with converted time
      * @link <a href="https://stackoverflow.com/questions/11357945/java-convert-seconds-into-day-hour-minute-and-seconds-using-timeunit">StackOverflow</a>
      * @author StackOverflow, ItsLeMax
      * @since 1.0.0
      */
-    public String convertTimeToText(final int time, final boolean providedSeconds) {
+    public String convertTimeToText(final int time, @NotNull final TimeUnit unit) {
 
-        final TimeUnit unit = providedSeconds ? TimeUnit.SECONDS : TimeUnit.MINUTES;
         final ArrayList<String> conversion = new ArrayList<>();
 
         // Mathematical conversion
@@ -55,7 +55,7 @@ public final class MethodHandler {
         if (seconds != 0)
             conversion.add(seconds + " " + configLib.text("time.seconds"));
 
-        return StringUtils.join(conversion);
+        return StringUtils.join(conversion, ", ");
 
     }
 

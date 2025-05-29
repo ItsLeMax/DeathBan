@@ -1,6 +1,5 @@
 package de.fpm_studio.deathban;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
 import de.fpm_studio.deathban.commands.ToggleDeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
 import de.fpm_studio.deathban.events.AsyncPlayerPreLogin;
@@ -10,10 +9,10 @@ import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
 import de.fpm_studio.ilmlib.util.Template;
-import io.papermc.paper.ban.BanListType;
-import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Holds the plugins entry point
@@ -59,8 +58,6 @@ public final class DeathBan extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§6" + configLib.text("init").replace("%p%", "[DeathBan]"));
 
-        removeAccidentalPermaBans();
-
     }
 
     /**
@@ -72,11 +69,11 @@ public final class DeathBan extends JavaPlugin {
     public void initializeGlobalVariables() {
 
         GlobalVariables.banTime = methodHandler.convertTimeToText(
-                configLib.getConfig("config").getInt("banTime"), false
+                configLib.getConfig("config").getInt("banTime"), TimeUnit.MINUTES
         );
 
         GlobalVariables.timeUntilBan = methodHandler.convertTimeToText(
-                configLib.getConfig("config").getInt("timeUntilBan"), true
+                configLib.getConfig("config").getInt("timeUntilBan"), TimeUnit.SECONDS
         );
 
         GlobalVariables.banReason = "§c" + configLib.text("warning.ban")
@@ -103,34 +100,9 @@ public final class DeathBan extends JavaPlugin {
      */
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(configLib), plugin);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(configLib, methodHandler), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(methodHandler), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(this, configLib, methodHandler), plugin);
-
-    }
-
-    /**
-     * Removes permanent bans in case of a force stop making the temporary bans permanent
-     *
-     * @author ItsLeMax
-     * @since 1.0.2
-     */
-    @SuppressWarnings("deprecation")
-    public void removeAccidentalPermaBans() {
-
-        for (final BanEntry<? super PlayerProfile> ban : Bukkit.getBanList(BanListType.PROFILE).getEntries()) {
-
-            // Only unban plugin related bans of course!
-
-            if (ban.getReason() != null && !ban.getReason().equals(GlobalVariables.banReason))
-                continue;
-
-            Bukkit.getConsoleSender().sendMessage("§c" + configLib.text("warning.shutdown")
-                    .replace("%r%", ban.getTarget()));
-
-            Bukkit.getBanList(BanListType.PROFILE).pardon(ban.getTarget());
-
-        }
 
     }
 

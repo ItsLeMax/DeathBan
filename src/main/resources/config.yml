@@ -3,6 +3,12 @@
 # Write their file name (without *.yml) down below to use the respective language.
 language: en_US
 
+# This sets the date format shown in the ban screen
+# Common in Europe is for example dd.MM.yyyy (e.g. 21.03.2025)
+# dd = two digit day | MM = two digit month | yyyy = four digit year
+# MM has to be uppercase
+timeFormat: "MM/dd/yyyy"
+
 # This is the time that is needed after ones death for the ban to appear in SECONDS.
 # 0 results in an instant ban.
 timeUntilBan: 300

@@ -2,6 +2,7 @@ package de.fpm_studio.deathban.events;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import io.papermc.paper.ban.BanListType;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Holds a custom ban screen for people dying and getting temp banned
@@ -22,6 +27,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 public final class AsyncPlayerPreLogin implements Listener {
 
     private final ConfigLib configLib;
+    private final MethodHandler methodHandler;
 
     @EventHandler
     @SuppressWarnings("deprecation")
@@ -42,11 +48,17 @@ public final class AsyncPlayerPreLogin implements Listener {
 
         assert banEntry.getExpiration() != null;
 
-        // Möchte schon noch die Fragezeichen gegen eine Entbannungszeit ersetzen. xD
+        final String timeFormat = configLib.getConfig("config").getString("timeFormat");
+        assert timeFormat != null;
+
+        final String dateOfBan = new SimpleDateFormat(timeFormat).format(banEntry.getExpiration());
+
+        final long remainingBanTime = (banEntry.getExpiration().getTime() - new Date().getTime());
+        final String remainingBanText = methodHandler.convertTimeToText((int) remainingBanTime, TimeUnit.MILLISECONDS);
 
         event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, banEntry.getReason() + "\n" + configLib.text("warning.unban")
-                .replace("%t%", "???")
-                .replace("%u%", banEntry.getExpiration().toString()) + "."
+                .replace("%u%", dateOfBan)
+                .replace("%t%", remainingBanText)
         );
 
     }
