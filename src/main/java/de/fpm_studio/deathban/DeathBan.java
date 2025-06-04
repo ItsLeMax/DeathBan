@@ -22,8 +22,6 @@ import java.util.concurrent.TimeUnit;
  */
 public final class DeathBan extends JavaPlugin {
 
-    private DeathBan plugin;
-
     private ConfigLib configLib;
     private MessageLib messageLib;
 
@@ -31,8 +29,6 @@ public final class DeathBan extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        plugin = this;
 
         // Library initialization
 
@@ -100,9 +96,9 @@ public final class DeathBan extends JavaPlugin {
      */
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(configLib, methodHandler), plugin);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin(methodHandler), plugin);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(this, configLib, methodHandler), plugin);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(configLib, methodHandler), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoin(methodHandler), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(this, configLib, methodHandler), this);
 
     }
 
