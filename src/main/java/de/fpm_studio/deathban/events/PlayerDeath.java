@@ -30,9 +30,6 @@ public final class PlayerDeath implements Listener {
 
     private final DeathBan instance;
 
-    private final ConfigLib configLib = instance.getConfigLib();
-    private final MethodHandler methodHandler = instance.getMethodHandler();
-
     private final HashMap<UUID, Integer> bansInProcess = new HashMap<>();
 
     @EventHandler
@@ -40,6 +37,9 @@ public final class PlayerDeath implements Listener {
 
         if (!GlobalVariables.banEnabled)
             return;
+
+        final ConfigLib configLib = instance.getConfigLib();
+        final MethodHandler methodHandler = instance.getMethodHandler();
 
         final FileConfiguration config = configLib.getConfig("config");
         final Player player = event.getPlayer();
@@ -110,6 +110,9 @@ public final class PlayerDeath implements Listener {
      */
     @SuppressWarnings("all")
     private void getHisAss(@NotNull final Player player) {
+
+        final ConfigLib configLib = instance.getConfigLib();
+        final MethodHandler methodHandler = instance.getMethodHandler();
 
         final Instant timeOfUnban = Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES);
 

@@ -1,7 +1,6 @@
 package de.fpm_studio.deathban.events;
 
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.util.MethodHandler;
 import lombok.AllArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,8 +18,6 @@ public final class PlayerJoin implements Listener {
 
     private final DeathBan instance;
 
-    private final MethodHandler methodHandler = instance.getMethodHandler();
-
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
 
@@ -28,8 +25,10 @@ public final class PlayerJoin implements Listener {
 
         // Simple information about the ban state
 
+        final String info = instance.getMethodHandler().info();
+
         player.sendMessage("");
-        player.sendMessage(methodHandler.info());
+        player.sendMessage(info);
         player.sendMessage("");
 
     }

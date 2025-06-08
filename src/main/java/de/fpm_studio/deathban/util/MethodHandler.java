@@ -21,8 +21,6 @@ public final class MethodHandler {
 
     private final DeathBan instance;
 
-    private final ConfigLib configLib = instance.getConfigLib();
-
     /**
      * Converts a time to the proper text
      *
@@ -34,6 +32,8 @@ public final class MethodHandler {
      * @since 1.0.0
      */
     public String convertTimeToText(final int time, @NotNull final TimeUnit unit) {
+
+        final ConfigLib configLib = instance.getConfigLib();
 
         final ArrayList<String> conversion = new ArrayList<>();
 
@@ -70,6 +70,8 @@ public final class MethodHandler {
      * @since 1.0.0
      */
     public String info() {
+
+        final ConfigLib configLib = instance.getConfigLib();
 
         final String banEnabled = GlobalVariables.banEnabled
                 ? ("§c" + configLib.text("notification.locked"))

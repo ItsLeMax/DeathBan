@@ -25,14 +25,14 @@ public final class ToggleDeathBan implements CommandExecutor {
 
     private final DeathBan instance;
 
-    private final ConfigLib configLib = instance.getConfigLib();
-    private final MessageLib messageLib = instance.getMessageLib();
-
-    private final MethodHandler methodHandler = instance.getMethodHandler();
-
     @Override
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
+        final ConfigLib configLib = instance.getConfigLib();
+        final MessageLib messageLib = instance.getMessageLib();
+
+        final MethodHandler methodHandler = instance.getMethodHandler();
 
         if (!sender.hasPermission("deathban.toggle")) {
             messageLib.sendInfo(sender, Template.ERROR, configLib.text("commands.noPerms"));

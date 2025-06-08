@@ -29,12 +29,12 @@ public final class AsyncPlayerPreLogin implements Listener {
 
     private final DeathBan instance;
 
-    private final ConfigLib configLib = instance.getConfigLib();
-    private final MethodHandler methodHandler = instance.getMethodHandler();
-
     @EventHandler
     @SuppressWarnings("deprecation")
     public void asyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
+
+        final ConfigLib configLib = instance.getConfigLib();
+        final MethodHandler methodHandler = instance.getMethodHandler();
 
         final BanList<PlayerProfile> banList = Bukkit.getBanList(BanListType.PROFILE);
         final PlayerProfile player = event.getPlayerProfile();
