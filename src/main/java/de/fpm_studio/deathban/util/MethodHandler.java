@@ -1,5 +1,6 @@
 package de.fpm_studio.deathban.util;
 
+import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,9 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public final class MethodHandler {
 
-    private final ConfigLib configLib;
+    private final DeathBan instance;
+
+    private final ConfigLib configLib = instance.getConfigLib();
 
     /**
      * Converts a time to the proper text

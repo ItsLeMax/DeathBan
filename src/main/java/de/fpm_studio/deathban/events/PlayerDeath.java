@@ -29,8 +29,9 @@ import java.util.concurrent.TimeUnit;
 public final class PlayerDeath implements Listener {
 
     private final DeathBan instance;
-    private final ConfigLib configLib;
-    private final MethodHandler methodHandler;
+
+    private final ConfigLib configLib = instance.getConfigLib();
+    private final MethodHandler methodHandler = instance.getMethodHandler();
 
     private final HashMap<UUID, Integer> bansInProcess = new HashMap<>();
 

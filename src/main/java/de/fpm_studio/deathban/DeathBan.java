@@ -9,6 +9,7 @@ import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
 import de.fpm_studio.ilmlib.util.Template;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @author ItsLeMax
  * @since 1.0.0
  */
+@Getter
 public final class DeathBan extends JavaPlugin {
 
     private ConfigLib configLib;
@@ -40,11 +42,11 @@ public final class DeathBan extends JavaPlugin {
                 .addSpacing()
                 .setPrefix("§6DeathBan §7»", true)
                 .createTemplateDefaults()
-                .setSuffix(Template.ERROR, configLib.text("commands.error"));
+                .setSuffix(Template.ERROR, getConfigLib().text("commands.error"));
 
         // Special utility class
 
-        methodHandler = new MethodHandler(configLib);
+        methodHandler = new MethodHandler(this);
 
         // Commands, events and global variables
 
@@ -52,7 +54,7 @@ public final class DeathBan extends JavaPlugin {
         registerEvents();
         initializeGlobalVariables();
 
-        Bukkit.getConsoleSender().sendMessage("§6" + configLib.text("init").replace("%p%", "[DeathBan]"));
+        Bukkit.getConsoleSender().sendMessage("§6" + getConfigLib().text("init").replace("%p%", "[DeathBan]"));
 
     }
 
@@ -64,16 +66,17 @@ public final class DeathBan extends JavaPlugin {
      */
     public void initializeGlobalVariables() {
 
-        GlobalVariables.banTime = methodHandler.convertTimeToText(
-                configLib.getConfig("config").getInt("banTime"), TimeUnit.MINUTES
+        GlobalVariables.banTime = getMethodHandler().convertTimeToText(
+                getConfigLib().getConfig("config").getInt("banTime"), TimeUnit.MINUTES
         );
 
-        GlobalVariables.timeUntilBan = methodHandler.convertTimeToText(
-                configLib.getConfig("config").getInt("timeUntilBan"), TimeUnit.SECONDS
+        GlobalVariables.timeUntilBan = getMethodHandler().convertTimeToText(
+                getConfigLib().getConfig("config").getInt("timeUntilBan"), TimeUnit.SECONDS
         );
 
-        GlobalVariables.banReason = "§c" + configLib.text("warning.ban")
-                .replace("%t%", GlobalVariables.banTime);
+        GlobalVariables.banReason = "§c" + getConfigLib().text("warning.ban").replace(
+                "%t%", GlobalVariables.banTime
+        );
 
     }
 
@@ -85,7 +88,7 @@ public final class DeathBan extends JavaPlugin {
      */
     @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
-        getCommand("toggledeathban").setExecutor(new ToggleDeathBan(configLib, messageLib, methodHandler));
+        getCommand("toggledeathban").setExecutor(new ToggleDeathBan(this));
     }
 
     /**
@@ -96,9 +99,9 @@ public final class DeathBan extends JavaPlugin {
      */
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(configLib, methodHandler), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin(methodHandler), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(this, configLib, methodHandler), this);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoin(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeath(this), this);
 
     }
 

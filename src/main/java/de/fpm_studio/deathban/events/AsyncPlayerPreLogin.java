@@ -1,6 +1,7 @@
 package de.fpm_studio.deathban.events;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
+import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
 import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
@@ -26,8 +27,10 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public final class AsyncPlayerPreLogin implements Listener {
 
-    private final ConfigLib configLib;
-    private final MethodHandler methodHandler;
+    private final DeathBan instance;
+
+    private final ConfigLib configLib = instance.getConfigLib();
+    private final MethodHandler methodHandler = instance.getMethodHandler();
 
     @EventHandler
     @SuppressWarnings("deprecation")

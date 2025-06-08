@@ -1,5 +1,6 @@
 package de.fpm_studio.deathban.commands;
 
+import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
 import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
@@ -22,10 +23,12 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public final class ToggleDeathBan implements CommandExecutor {
 
-    private final ConfigLib configLib;
-    private final MessageLib messageLib;
+    private final DeathBan instance;
 
-    private final MethodHandler methodHandler;
+    private final ConfigLib configLib = instance.getConfigLib();
+    private final MessageLib messageLib = instance.getMessageLib();
+
+    private final MethodHandler methodHandler = instance.getMethodHandler();
 
     @Override
     @SuppressWarnings("deprecation")
