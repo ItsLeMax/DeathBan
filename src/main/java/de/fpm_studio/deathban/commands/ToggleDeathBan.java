@@ -2,7 +2,6 @@ package de.fpm_studio.deathban.commands;
 
 import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
-import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
 import de.fpm_studio.ilmlib.util.HoverText;
@@ -32,8 +31,6 @@ public final class ToggleDeathBan implements CommandExecutor {
         final ConfigLib configLib = instance.getConfigLib();
         final MessageLib messageLib = instance.getMessageLib();
 
-        final MethodHandler methodHandler = instance.getMethodHandler();
-
         if (!sender.hasPermission("deathban.toggle")) {
             messageLib.sendInfo(sender, Template.ERROR, configLib.text("commands.noPerms"));
             return true;
@@ -46,8 +43,10 @@ public final class ToggleDeathBan implements CommandExecutor {
 
         GlobalVariables.banEnabled = !GlobalVariables.banEnabled;
 
+        final String info = instance.getMethodHandler().info();
+
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(methodHandler.info());
+        Bukkit.broadcastMessage(info);
         Bukkit.broadcastMessage("");
 
         return true;

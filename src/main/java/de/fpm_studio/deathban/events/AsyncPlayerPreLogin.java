@@ -3,7 +3,6 @@ package de.fpm_studio.deathban.events;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
-import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import io.papermc.paper.ban.BanListType;
 import lombok.AllArgsConstructor;
@@ -33,9 +32,6 @@ public final class AsyncPlayerPreLogin implements Listener {
     @SuppressWarnings("deprecation")
     public void asyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
 
-        final ConfigLib configLib = instance.getConfigLib();
-        final MethodHandler methodHandler = instance.getMethodHandler();
-
         final BanList<PlayerProfile> banList = Bukkit.getBanList(BanListType.PROFILE);
         final PlayerProfile player = event.getPlayerProfile();
 
@@ -49,6 +45,8 @@ public final class AsyncPlayerPreLogin implements Listener {
         if (banEntry.getReason() != null && !banEntry.getReason().equals(GlobalVariables.banReason))
             return;
 
+        final ConfigLib configLib = instance.getConfigLib();
+
         assert banEntry.getExpiration() != null;
 
         final String timeFormat = configLib.getConfig("config").getString("timeFormat");
@@ -57,7 +55,7 @@ public final class AsyncPlayerPreLogin implements Listener {
         final String dateOfBan = new SimpleDateFormat(timeFormat).format(banEntry.getExpiration());
 
         final long remainingBanTime = (banEntry.getExpiration().getTime() - new Date().getTime());
-        final String remainingBanText = methodHandler.convertTimeToText((int) remainingBanTime, TimeUnit.MILLISECONDS);
+        final String remainingBanText = instance.getMethodHandler().convertTimeToText((int) remainingBanTime, TimeUnit.MILLISECONDS);
 
         event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, banEntry.getReason() + "\n" + configLib.text("warning.unban")
                 .replace("%u%", dateOfBan)

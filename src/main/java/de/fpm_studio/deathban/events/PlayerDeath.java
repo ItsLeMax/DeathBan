@@ -2,7 +2,6 @@ package de.fpm_studio.deathban.events;
 
 import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;
-import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -39,7 +38,6 @@ public final class PlayerDeath implements Listener {
             return;
 
         final ConfigLib configLib = instance.getConfigLib();
-        final MethodHandler methodHandler = instance.getMethodHandler();
 
         final FileConfiguration config = configLib.getConfig("config");
         final Player player = event.getPlayer();
@@ -82,8 +80,8 @@ public final class PlayerDeath implements Listener {
                     player.sendMessage("");
                     player.sendMessage("§c§l" + configLib.text("warning.update") + ":");
 
-                    player.sendMessage("§3" + configLib.text("warning.timeUntilBan")
-                            .replace("%a%", methodHandler.convertTimeToText(timer[0] / 20, TimeUnit.SECONDS))
+                    player.sendMessage("§3" + configLib.text("warning.timeUntilBan").replace("%a%",
+                            instance.getMethodHandler().convertTimeToText(timer[0] / 20, TimeUnit.SECONDS))
                     );
 
                     player.sendMessage("");
@@ -112,7 +110,6 @@ public final class PlayerDeath implements Listener {
     private void getHisAss(@NotNull final Player player) {
 
         final ConfigLib configLib = instance.getConfigLib();
-        final MethodHandler methodHandler = instance.getMethodHandler();
 
         final Instant timeOfUnban = Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES);
 
