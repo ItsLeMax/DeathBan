@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +30,7 @@ public final class PlayerDeath implements Listener {
 
     private final DeathBan instance;
 
-    private final HashMap<UUID, Integer> bansInProcess = new HashMap<>();
+    private final Map<UUID, Integer> bansInProcess = new HashMap<>();
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
