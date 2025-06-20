@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.2
  */
 @AllArgsConstructor
-public final class AsyncPlayerPreLogin implements Listener {
+public final class AsyncPlayerPreLoginListener implements Listener {
 
     private final DeathBan instance;
 

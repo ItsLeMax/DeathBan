@@ -1,10 +1,10 @@
 package de.fpm_studio.deathban;
 
-import de.fpm_studio.deathban.commands.ToggleDeathBan;
+import de.fpm_studio.deathban.commands.ToggleDeathBanCommand;
 import de.fpm_studio.deathban.data.GlobalVariables;
-import de.fpm_studio.deathban.events.AsyncPlayerPreLogin;
-import de.fpm_studio.deathban.events.PlayerDeath;
-import de.fpm_studio.deathban.events.PlayerJoin;
+import de.fpm_studio.deathban.events.AsyncPlayerPreLoginListener;
+import de.fpm_studio.deathban.events.PlayerDeathListener;
+import de.fpm_studio.deathban.events.PlayerJoinListener;
 import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
@@ -88,7 +88,7 @@ public final class DeathBan extends JavaPlugin {
      */
     @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
-        getCommand("toggledeathban").setExecutor(new ToggleDeathBan(this));
+        getCommand("toggledeathban").setExecutor(new ToggleDeathBanCommand(this));
     }
 
     /**
@@ -99,9 +99,9 @@ public final class DeathBan extends JavaPlugin {
      */
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLogin(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoin(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeath(this), this);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLoginListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 
     }
 

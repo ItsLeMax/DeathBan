@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
  * @since 1.0.0
  */
 @AllArgsConstructor
-public final class PlayerJoin implements Listener {
+public final class PlayerJoinListener implements Listener {
 
     private final DeathBan instance;
 

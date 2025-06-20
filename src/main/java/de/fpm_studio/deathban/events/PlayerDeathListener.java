@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public final class PlayerDeath implements Listener {
+public final class PlayerDeathListener implements Listener {
 
     private final DeathBan instance;
 

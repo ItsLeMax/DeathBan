@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 1.0.0
  */
 @AllArgsConstructor
-public final class ToggleDeathBan implements CommandExecutor {
+public final class ToggleDeathBanCommand implements CommandExecutor {
 
     private final DeathBan instance;
 
