@@ -1,7 +1,7 @@
 package de.fpm_studio.deathban.commands;
 
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
 import de.fpm_studio.ilmlib.util.HoverText;
@@ -41,7 +41,7 @@ public final class ToggleDeathBanCommand implements CommandExecutor {
             return true;
         }
 
-        GlobalVariables.banEnabled = !GlobalVariables.banEnabled;
+        GlobalVariablesHolder.banEnabled = !GlobalVariablesHolder.banEnabled;
 
         final String info = instance.getMethodHandler().info();
 

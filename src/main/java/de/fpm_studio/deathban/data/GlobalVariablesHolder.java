@@ -6,7 +6,7 @@ package de.fpm_studio.deathban.data;
  * @author ItsLeMax
  * @since Code: 1.0.0 <br> Class: 1.0.2
  */
-public final class GlobalVariables {
+public final class GlobalVariablesHolder {
 
     public static boolean banEnabled = false;
 

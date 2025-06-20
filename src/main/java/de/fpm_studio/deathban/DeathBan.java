@@ -1,7 +1,7 @@
 package de.fpm_studio.deathban;
 
 import de.fpm_studio.deathban.commands.ToggleDeathBanCommand;
-import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.deathban.listener.AsyncPlayerPreLoginListener;
 import de.fpm_studio.deathban.listener.PlayerDeathListener;
 import de.fpm_studio.deathban.listener.PlayerJoinListener;
@@ -66,16 +66,16 @@ public final class DeathBan extends JavaPlugin {
      */
     public void initializeGlobalVariables() {
 
-        GlobalVariables.banTime = getMethodHandler().convertTimeToText(
+        GlobalVariablesHolder.banTime = getMethodHandler().convertTimeToText(
                 getConfigLib().getConfig("config").getInt("banTime"), TimeUnit.MINUTES
         );
 
-        GlobalVariables.timeUntilBan = getMethodHandler().convertTimeToText(
+        GlobalVariablesHolder.timeUntilBan = getMethodHandler().convertTimeToText(
                 getConfigLib().getConfig("config").getInt("timeUntilBan"), TimeUnit.SECONDS
         );
 
-        GlobalVariables.banReason = "§c" + getConfigLib().text("warning.ban").replace(
-                "%t%", GlobalVariables.banTime
+        GlobalVariablesHolder.banReason = "§c" + getConfigLib().text("warning.ban").replace(
+                "%t%", GlobalVariablesHolder.banTime
         );
 
     }

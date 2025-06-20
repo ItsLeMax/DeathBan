@@ -2,7 +2,7 @@ package de.fpm_studio.deathban.listener;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import io.papermc.paper.ban.BanListType;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public final class AsyncPlayerPreLoginListener implements Listener {
         if (banEntry == null)
             return;
 
-        if (banEntry.getReason() != null && !banEntry.getReason().equals(GlobalVariables.banReason))
+        if (banEntry.getReason() != null && !banEntry.getReason().equals(GlobalVariablesHolder.banReason))
             return;
 
         final ConfigLib configLib = instance.getConfigLib();

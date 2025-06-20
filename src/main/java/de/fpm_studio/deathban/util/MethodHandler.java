@@ -1,7 +1,7 @@
 package de.fpm_studio.deathban.util;
 
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -73,16 +73,16 @@ public final class MethodHandler {
 
         final ConfigLib configLib = instance.getConfigLib();
 
-        final String banEnabled = GlobalVariables.banEnabled
+        final String banEnabled = GlobalVariablesHolder.banEnabled
                 ? ("§c" + configLib.text("notification.locked"))
                 : ("§a" + configLib.text("notification.unlocked"));
 
         // Replacing a lot of placeholders inside the text
 
         return "§3" + configLib.text("notification.info")
-                .replaceFirst("%t%", GlobalVariables.banTime)
+                .replaceFirst("%t%", GlobalVariablesHolder.banTime)
                 .replaceFirst("%r%", banEnabled)
-                .replaceFirst("%a%", GlobalVariables.timeUntilBan)
+                .replaceFirst("%a%", GlobalVariablesHolder.timeUntilBan)
                 .replaceFirst("%c% ", "§7")
                 .replaceFirst("%c% ", "§e")
                 .replaceFirst("%c% ", "§7")

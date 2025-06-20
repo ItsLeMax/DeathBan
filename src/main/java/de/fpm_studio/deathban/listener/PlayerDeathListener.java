@@ -1,7 +1,7 @@
 package de.fpm_studio.deathban.listener;
 
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.data.GlobalVariables;
+import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
@@ -35,7 +35,7 @@ public final class PlayerDeathListener implements Listener {
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
 
-        if (!GlobalVariables.banEnabled)
+        if (!GlobalVariablesHolder.banEnabled)
             return;
 
         final ConfigLib configLib = instance.getConfigLib();
@@ -63,8 +63,8 @@ public final class PlayerDeathListener implements Listener {
         if (timeUntilBan != 0) {
 
             player.sendMessage("");
-            player.sendMessage("§c§l" + configLib.text("warning.death").replace("%a%", GlobalVariables.timeUntilBan));
-            player.sendMessage("§3" + configLib.text("warning.explanation").replace("%t%", GlobalVariables.banTime));
+            player.sendMessage("§c§l" + configLib.text("warning.death").replace("%a%", GlobalVariablesHolder.timeUntilBan));
+            player.sendMessage("§3" + configLib.text("warning.explanation").replace("%t%", GlobalVariablesHolder.banTime));
             player.sendMessage("");
 
         }
@@ -114,7 +114,7 @@ public final class PlayerDeathListener implements Listener {
 
         final Instant timeOfUnban = Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES);
 
-        player.ban(GlobalVariables.banReason, timeOfUnban, "Plugin", true);
+        player.ban(GlobalVariablesHolder.banReason, timeOfUnban, "Plugin", true);
 
         // Clear memory from unused data
 
