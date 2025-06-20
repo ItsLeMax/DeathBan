@@ -1,4 +1,4 @@
-package de.fpm_studio.deathban.events;
+package de.fpm_studio.deathban.listener;
 
 import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.data.GlobalVariables;

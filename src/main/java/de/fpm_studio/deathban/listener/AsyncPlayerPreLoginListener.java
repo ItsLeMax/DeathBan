@@ -1,4 +1,4 @@
-package de.fpm_studio.deathban.events;
+package de.fpm_studio.deathban.listener;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import de.fpm_studio.deathban.DeathBan;

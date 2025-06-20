@@ -2,9 +2,9 @@ package de.fpm_studio.deathban;
 
 import de.fpm_studio.deathban.commands.ToggleDeathBanCommand;
 import de.fpm_studio.deathban.data.GlobalVariables;
-import de.fpm_studio.deathban.events.AsyncPlayerPreLoginListener;
-import de.fpm_studio.deathban.events.PlayerDeathListener;
-import de.fpm_studio.deathban.events.PlayerJoinListener;
+import de.fpm_studio.deathban.listener.AsyncPlayerPreLoginListener;
+import de.fpm_studio.deathban.listener.PlayerDeathListener;
+import de.fpm_studio.deathban.listener.PlayerJoinListener;
 import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
