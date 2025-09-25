@@ -9,7 +9,6 @@
 # GitHub: https://github.com/ItsLeMax/DeathBan/
 # Socials: @ItsLeMax
 
-init: "" # %p% has been loaded successfully!
 commands:
   error: "" # Error!
   noPerms: "" # You do not have enough permissions!

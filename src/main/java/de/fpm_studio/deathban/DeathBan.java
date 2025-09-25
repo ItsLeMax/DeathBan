@@ -1,10 +1,10 @@
 package de.fpm_studio.deathban;
 
 import de.fpm_studio.deathban.commands.ToggleDeathBanCommand;
-import de.fpm_studio.deathban.data.GlobalVariablesHolder;
 import de.fpm_studio.deathban.listener.AsyncPlayerPreLoginListener;
 import de.fpm_studio.deathban.listener.PlayerDeathListener;
 import de.fpm_studio.deathban.listener.PlayerJoinListener;
+import de.fpm_studio.deathban.util.ConfigHandler;
 import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
@@ -24,37 +24,35 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public final class DeathBan extends JavaPlugin {
 
+    @Getter
+    private static DeathBan instance;
+
     private ConfigLib configLib;
     private MessageLib messageLib;
 
-    private MethodHandler methodHandler;
-
     @Override
     public void onEnable() {
+
+        instance = this;
 
         // Library initialization
 
         configLib = new ConfigLib(this)
                 .createDefaultConfigs("config")
-                .createConfigsInsideDirectory("languages", "de_DE", "en_US", "custom_lang");
+                .createConfigsInsideDirectory("localization", "de_DE", "en_US", "custom_lang");
 
         messageLib = new MessageLib()
                 .addSpacing()
                 .setPrefix("§6DeathBan §7»", true)
                 .createTemplateDefaults()
-                .setSuffix(Template.ERROR, getConfigLib().text("commands.error"));
-
-        // Special utility class
-
-        methodHandler = new MethodHandler(this);
+                .setSuffix(Template.ERROR, ConfigHandler.COMMANDS_ERROR);
 
         // Commands, events and global variables
 
-        registerCommands();
         registerEvents();
-        initializeGlobalVariables();
+        registerCommands();
 
-        Bukkit.getConsoleSender().sendMessage("§6" + getConfigLib().text("init").replace("%p%", "[DeathBan]"));
+        initializeGlobalVariables();
 
     }
 
@@ -66,17 +64,26 @@ public final class DeathBan extends JavaPlugin {
      */
     public void initializeGlobalVariables() {
 
-        GlobalVariablesHolder.banTime = getMethodHandler().convertTimeToText(
-                getConfigLib().getConfig("config").getInt("banTime"), TimeUnit.MINUTES
-        );
+        final int banTime = getConfigLib().getConfig("config").getInt("banTime");
+        final int timeUntilBan = getConfigLib().getConfig("config").getInt("timeUntilBan");
 
-        GlobalVariablesHolder.timeUntilBan = getMethodHandler().convertTimeToText(
-                getConfigLib().getConfig("config").getInt("timeUntilBan"), TimeUnit.SECONDS
-        );
+        ConfigHandler.BAN_TIME = MethodHandler.convertTimeToText(banTime, TimeUnit.MINUTES);
+        ConfigHandler.TIME_UNTIL_BAN = MethodHandler.convertTimeToText(timeUntilBan, TimeUnit.SECONDS);
+        ConfigHandler.BAN_REASON = "§c" + ConfigHandler.WARNING_BAN.replace("%t%", ConfigHandler.BAN_TIME);
 
-        GlobalVariablesHolder.banReason = "§c" + getConfigLib().text("warning.ban").replace(
-                "%t%", GlobalVariablesHolder.banTime
-        );
+    }
+
+    /**
+     * Registers the plugins events
+     *
+     * @author ItsLeMax
+     * @since Code: 1.0.0 <br> Method - 1.0.2
+     */
+    private void registerEvents() {
+
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLoginListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(this), this);
 
     }
 
@@ -89,20 +96,6 @@ public final class DeathBan extends JavaPlugin {
     @SuppressWarnings("ConstantConditions")
     private void registerCommands() {
         getCommand("toggledeathban").setExecutor(new ToggleDeathBanCommand(this));
-    }
-
-    /**
-     * Registers the plugins events
-     *
-     * @author ItsLeMax
-     * @since Code: 1.0.0 <br> Method - 1.0.2
-     */
-    private void registerEvents() {
-
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerPreLoginListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(this), this);
-
     }
 
 }

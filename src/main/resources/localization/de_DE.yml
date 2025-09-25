@@ -1,6 +1,5 @@
 # Lass die Finger von %%, da es vom Plugin ersetzt wird!
 
-init: "%p% wurde erfolgreich geladen!"
 commands:
   error: "Fehler!"
   noPerms: "Du hast hierfür nicht ausreichend Rechte!"

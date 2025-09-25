@@ -1,9 +1,8 @@
 package de.fpm_studio.deathban.listener;
 
 import de.fpm_studio.deathban.DeathBan;
-import de.fpm_studio.deathban.data.GlobalVariablesHolder;
-import de.fpm_studio.ilmlib.libraries.ConfigLib;
-import lombok.RequiredArgsConstructor;
+import de.fpm_studio.deathban.util.ConfigHandler;
+import de.fpm_studio.deathban.util.MethodHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,9 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Contains player death processes
@@ -25,76 +26,87 @@ import java.util.concurrent.TimeUnit;
  * @author ItsLeMax
  * @since 1.0.0
  */
-@RequiredArgsConstructor
 public final class PlayerDeathListener implements Listener {
 
     private final DeathBan instance;
 
-    private final Map<UUID, Integer> bansInProcess = new HashMap<>();
+    public PlayerDeathListener(@NotNull final DeathBan instance) {
+
+        this.instance = instance;
+
+        final FileConfiguration config = instance.getConfig();
+
+        SECOND_DEATH_IMMEDIATE = config.getBoolean("secondDeathImmediate");
+        TIME_UNTIL_BAN = config.getInt("timeUntilBan");
+        REMINDERS = config.getIntegerList("reminders");
+        BAN_TIME = config.get("banTime");
+
+    }
+
+    private static boolean SECOND_DEATH_IMMEDIATE;
+    private static int TIME_UNTIL_BAN;
+    private static List<Integer> REMINDERS;
+    private static Object BAN_TIME;
+
+    private static final Map<UUID, Integer> BANS_IN_PROCESS = new HashMap<>();
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
 
-        if (!GlobalVariablesHolder.banEnabled)
+        if (!ConfigHandler.BAN_ENABLED)
             return;
 
-        final ConfigLib configLib = instance.getConfigLib();
-
-        final FileConfiguration config = configLib.getConfig("config");
-        final Player player = event.getPlayer();
+        final Player player = event.getEntity();
 
         // Ban player immediately on second death if enabled inside the config
 
-        if (bansInProcess.containsKey(player.getUniqueId())) {
+        if (BANS_IN_PROCESS.containsKey(player.getUniqueId())) {
 
-            if (config.getBoolean("secondDeathImmediate")) {
+            if (SECOND_DEATH_IMMEDIATE)
                 getHisAss(player);
-            }
 
             return;
 
         }
 
-        final int timeUntilBan = config.getInt("timeUntilBan");
-        final int[] timer = {20 * timeUntilBan};
+        final AtomicInteger timer = new AtomicInteger(20 * TIME_UNTIL_BAN);
 
         // Send ban notice if the ban will not be immediate
 
-        if (timeUntilBan != 0) {
+        if (TIME_UNTIL_BAN != 0) {
 
             player.sendMessage("");
-            player.sendMessage("§c§l" + configLib.text("warning.death").replace("%a%", GlobalVariablesHolder.timeUntilBan));
-            player.sendMessage("§3" + configLib.text("warning.explanation").replace("%t%", GlobalVariablesHolder.banTime));
+            player.sendMessage("§c§l" + ConfigHandler.WARNING_DEATH.replace("%a%", ConfigHandler.TIME_UNTIL_BAN));
+            player.sendMessage("§3" + ConfigHandler.WARNING_EXPLANATION.replace("%t%", ConfigHandler.BAN_TIME));
             player.sendMessage("");
 
         }
 
-        bansInProcess.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
-            timer[0] = timer[0] - 20;
+        BANS_IN_PROCESS.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
 
-            for (final int minute : config.getIntegerList("reminders")) {
+            timer.set(timer.get() - 20);
+
+            for (final int minute : REMINDERS) {
 
                 // Repeating hints about the ban with a certain amount of time left
 
-                if (timer[0] == 20 * 60 * minute) {
+                if (timer.get() == 20 * 60 * minute) {
+
+                    final String time = MethodHandler.convertTimeToText(timer.get() / 20, TimeUnit.SECONDS);
 
                     player.sendMessage("");
-                    player.sendMessage("§c§l" + configLib.text("warning.update") + ":");
-
-                    player.sendMessage("§3" + configLib.text("warning.timeUntilBan").replace("%a%",
-                            instance.getMethodHandler().convertTimeToText(timer[0] / 20, TimeUnit.SECONDS))
-                    );
-
+                    player.sendMessage("§c§l" + ConfigHandler.WARNING_UPDATE + ":");
+                    player.sendMessage("§3" + ConfigHandler.TIME_UNTIL_BAN.replace("%a%", time));
                     player.sendMessage("");
 
                 }
+
             }
 
             // Final ban
 
-            if (timer[0] <= 0) {
+            if (timer.get() <= 0)
                 getHisAss(player);
-            }
 
         }, 0, 20));
 
@@ -104,24 +116,23 @@ public final class PlayerDeathListener implements Listener {
      * Bans the player from the server and informs the console
      *
      * @param player Player to ban
+     *
      * @author ItsLeMax
      * @since Code: 1.0.0 <br> Method: 1.0.1
      */
     @SuppressWarnings("all")
     private void getHisAss(@NotNull final Player player) {
 
-        final ConfigLib configLib = instance.getConfigLib();
+        final Instant timeOfUnban = Instant.now().plus((int) BAN_TIME, ChronoUnit.MINUTES);
 
-        final Instant timeOfUnban = Instant.now().plus((int) configLib.getConfig("config").get("banTime"), ChronoUnit.MINUTES);
-
-        player.ban(GlobalVariablesHolder.banReason, timeOfUnban, "Plugin", true);
+        player.ban(ConfigHandler.BAN_REASON, timeOfUnban, "Plugin", true);
 
         // Clear memory from unused data
 
-        Bukkit.getScheduler().cancelTask(bansInProcess.get(player.getUniqueId()));
-        bansInProcess.remove(player.getUniqueId());
+        Bukkit.getScheduler().cancelTask(BANS_IN_PROCESS.get(player.getUniqueId()));
+        BANS_IN_PROCESS.remove(player.getUniqueId());
 
-        Bukkit.getConsoleSender().sendMessage("§c" + configLib.text("warning.console").replace("%r%", player.getName()));
+        Bukkit.getConsoleSender().sendMessage("§c" + ConfigHandler.WARNING_CONSOLE.replace("%r%", player.getName()));
 
     }
 
