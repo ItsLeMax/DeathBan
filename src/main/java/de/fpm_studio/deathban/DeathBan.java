@@ -5,15 +5,12 @@ import de.fpm_studio.deathban.listener.AsyncPlayerPreLoginListener;
 import de.fpm_studio.deathban.listener.PlayerDeathListener;
 import de.fpm_studio.deathban.listener.PlayerJoinListener;
 import de.fpm_studio.deathban.util.ConfigHandler;
-import de.fpm_studio.deathban.util.MethodHandler;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 import de.fpm_studio.ilmlib.libraries.MessageLib;
 import de.fpm_studio.ilmlib.util.Template;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Holds the plugins entry point
@@ -51,25 +48,6 @@ public final class DeathBan extends JavaPlugin {
 
         registerEvents();
         registerCommands();
-
-        initializeGlobalVariables();
-
-    }
-
-    /**
-     * Initializes global variables
-     *
-     * @author ItsLeMax
-     * @since Code: 1.0.0 <br> Method: 1.0.2
-     */
-    public void initializeGlobalVariables() {
-
-        final int banTime = getConfigLib().getConfig("config").getInt("banTime");
-        final int timeUntilBan = getConfigLib().getConfig("config").getInt("timeUntilBan");
-
-        ConfigHandler.BAN_TIME = MethodHandler.convertTimeToText(banTime, TimeUnit.MINUTES);
-        ConfigHandler.TIME_UNTIL_BAN = MethodHandler.convertTimeToText(timeUntilBan, TimeUnit.SECONDS);
-        ConfigHandler.BAN_REASON = "§c" + ConfigHandler.WARNING_BAN.replace("%t%", ConfigHandler.BAN_TIME);
 
     }
 

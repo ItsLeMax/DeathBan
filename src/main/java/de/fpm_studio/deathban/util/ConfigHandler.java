@@ -3,6 +3,8 @@ package de.fpm_studio.deathban.util;
 import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.ilmlib.libraries.ConfigLib;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Holds simple text and boolean data
  *
@@ -15,10 +17,8 @@ public final class ConfigHandler {
 
     public static boolean BAN_ENABLED = false;
 
-    public static String
-            TIME_UNTIL_BAN,
-            BAN_TIME,
-            BAN_REASON;
+    public static final int banTime = configLib.getConfig("config").getInt("banTime");
+    public static final int timeUntilBan = configLib.getConfig("config").getInt("timeUntilBan");
 
     public static String
             COMMANDS_ERROR = configLib.text("commands.error"),
@@ -38,5 +38,10 @@ public final class ConfigHandler {
             WARNING_UNBAN = configLib.text("warning.unban"),
             NO_PERMS = configLib.text("commands.noPerms"),
             TOO_MANY_ARGS = configLib.text("commands.tooManyArgs");
+
+    public static String
+            TIME_UNTIL_BAN = MethodHandler.convertTimeToText(timeUntilBan, TimeUnit.SECONDS),
+            BAN_TIME = MethodHandler.convertTimeToText(banTime, TimeUnit.MINUTES),
+            BAN_REASON = "§c" + ConfigHandler.WARNING_BAN.replace("%t%", ConfigHandler.BAN_TIME);
 
 }
