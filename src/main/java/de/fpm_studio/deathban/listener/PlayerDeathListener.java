@@ -4,6 +4,7 @@ import de.fpm_studio.deathban.DeathBan;
 import de.fpm_studio.deathban.util.ConfigHandler;
 import de.fpm_studio.deathban.util.MethodHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -98,6 +99,8 @@ public final class PlayerDeathListener implements Listener {
                     player.sendMessage("§c§l" + ConfigHandler.WARNING_UPDATE + ":");
                     player.sendMessage("§3" + ConfigHandler.WARNING_TIME_UNTIL_BAN.replace("%a%", time));
                     player.sendMessage("");
+
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
 
                 }
 
