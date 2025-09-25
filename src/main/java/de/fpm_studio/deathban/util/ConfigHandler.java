@@ -7,7 +7,7 @@ import de.fpm_studio.ilmlib.libraries.ConfigLib;
  * Holds simple text and boolean data
  *
  * @author ItsLeMax
- * @since Code: 1.0.0 <br> Class: 1.0.2
+ * @since Code: 1.0.0 <br> Class: 1.0.3
  */
 public final class ConfigHandler {
 

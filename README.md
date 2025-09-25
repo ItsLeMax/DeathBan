@@ -23,4 +23,4 @@ Bans the player of a Minecraft server on death temporarily
 ## Guide
 
 - The death ban is disabled on startup by default
-- Enter `/toggledeathban` into the chat or any alternative (`toggleban`, `toggledeath`) to change the state
+- Enter `/toggledeathban` into the chat to change the state
