@@ -28,7 +28,7 @@ public final class AsyncPlayerPreLoginListener implements Listener {
     private final ConfigLib configLib;
 
     public AsyncPlayerPreLoginListener(@NotNull final DeathBan instance) {
-        configLib = instance.getConfigLib();
+        this.configLib = instance.getConfigLib();
     }
 
     @EventHandler

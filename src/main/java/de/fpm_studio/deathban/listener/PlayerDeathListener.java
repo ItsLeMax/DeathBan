@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Contains player death processes
@@ -30,6 +29,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public final class PlayerDeathListener implements Listener {
 
     private final DeathBan instance;
+
+    private static boolean SECOND_DEATH_IMMEDIATE;
+    private static int TIME_UNTIL_BAN;
+    private static List<Integer> REMINDERS;
+    private static Object BAN_TIME;
+
+    private static final Map<UUID, Integer> BANS_IN_PROCESS = new HashMap<>();
 
     public PlayerDeathListener(@NotNull final DeathBan instance) {
 
@@ -43,13 +49,6 @@ public final class PlayerDeathListener implements Listener {
         BAN_TIME = config.get("banTime");
 
     }
-
-    private static boolean SECOND_DEATH_IMMEDIATE;
-    private static int TIME_UNTIL_BAN;
-    private static List<Integer> REMINDERS;
-    private static Object BAN_TIME;
-
-    private static final Map<UUID, Integer> BANS_IN_PROCESS = new HashMap<>();
 
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
@@ -70,7 +69,7 @@ public final class PlayerDeathListener implements Listener {
 
         }
 
-        final AtomicInteger timer = new AtomicInteger(20 * TIME_UNTIL_BAN);
+        final int[] timer = new int[]{20 * TIME_UNTIL_BAN};
 
         // Send ban notice if the ban will not be immediate
 
@@ -85,15 +84,15 @@ public final class PlayerDeathListener implements Listener {
 
         BANS_IN_PROCESS.put(player.getUniqueId(), Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(instance, () -> {
 
-            timer.set(timer.get() - 20);
+            timer[0] = timer[0] - 20;
 
             for (final int minute : REMINDERS) {
 
                 // Repeating hints about the ban with a certain amount of time left
 
-                if (timer.get() == 20 * 60 * minute) {
+                if (timer[0] == 20 * 60 * minute) {
 
-                    final String time = MethodHandler.convertTimeToText(timer.get() / 20, TimeUnit.SECONDS);
+                    final String time = MethodHandler.convertTimeToText(timer[0] / 20, TimeUnit.SECONDS);
 
                     player.sendMessage("");
                     player.sendMessage("§c§l" + ConfigHandler.WARNING_UPDATE + ":");
@@ -108,7 +107,7 @@ public final class PlayerDeathListener implements Listener {
 
             // Final ban
 
-            if (timer.get() <= 0)
+            if (timer[0] <= 0)
                 getHisAss(player);
 
         }, 0, 20));
