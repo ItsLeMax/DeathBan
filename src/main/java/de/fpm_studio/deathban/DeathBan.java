@@ -39,7 +39,7 @@ public final class DeathBan extends JavaPlugin {
 
         configLib = new ConfigLib(this)
                 .createDefaultConfigs("config")
-                .createConfigsInsideDirectory("localization", "de_DE", "en_US", "custom_lang");
+                .createConfigsInsideDirectory("localization", "de_DE", "en_US", "custom");
 
         messageLib = new MessageLib()
                 .addSpacing()

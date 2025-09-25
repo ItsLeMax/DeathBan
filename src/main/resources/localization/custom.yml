@@ -24,10 +24,9 @@ warning:
   timeUntilBan: "" # You will be banned in %a%.
   ban: "" # You were banned from this server for %t% because of your death.
   console: "" # %r% was banned due to his death.
-  shutdown: "" # An unban will take place at the %u% in %t%.
-  unban: "" # days
+  unban: "" # An unban will take place at %u% in %t%.
 time:
-  days: "" # hours
-  hours: "" # minutes
-  minutes: "" # seconds
-  seconds: "" #
+  days: "" # days
+  hours: "" # hours
+  minutes: "" # minutes
+  seconds: "" # seconds
