@@ -22,7 +22,7 @@ public final class ToggleDeathBanCommand implements CommandExecutor {
 
     private final MessageLib messageLib;
 
-    public ToggleDeathBanCommand(DeathBan instance) {
+    public ToggleDeathBanCommand(@NotNull final DeathBan instance) {
         messageLib = instance.getMessageLib();
     }
 

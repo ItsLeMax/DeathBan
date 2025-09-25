@@ -10,6 +10,3 @@ commands:
   toggledeathban:
     description: Toggles the plugin functionality with a hint to everyone
     usage: /toggledeathban
-    aliases:
-      - toggleban
-      - toggledeath
