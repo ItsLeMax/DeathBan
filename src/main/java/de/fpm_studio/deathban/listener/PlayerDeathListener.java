@@ -96,7 +96,7 @@ public final class PlayerDeathListener implements Listener {
 
                     player.sendMessage("");
                     player.sendMessage("§c§l" + ConfigHandler.WARNING_UPDATE + ":");
-                    player.sendMessage("§3" + ConfigHandler.TIME_UNTIL_BAN.replace("%a%", time));
+                    player.sendMessage("§3" + ConfigHandler.WARNING_TIME_UNTIL_BAN.replace("%a%", time));
                     player.sendMessage("");
 
                 }
